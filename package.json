@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --dir src",
-    "lint:fix": "next lint --dir src --fix"
+    "lint:fix": "next lint --dir src --fix",
+    "prepare": "simple-git-hooks"
   },
   "dependencies": {
     "@types/node": "18.11.9",
@@ -29,11 +30,22 @@
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^8.0.0",
-    "prettier": "^2.7.1"
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "simple-git-hooks": "^2.8.1"
   },
   "prettier": {
     "singleQuote": false,
     "trailingComma": "es5",
     "semi": true
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint src --fix",
+      "prettier --write --dir src"
+    ]
+  },
+  "simple-git-hooks": {
+    "pre-commit": "yarn lint-staged --allow-empty"
   }
 }
