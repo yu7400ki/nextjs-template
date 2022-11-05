@@ -61,8 +61,8 @@
         "tsx": "never"
       }
     ], // importの拡張子を省略する
-    "simple-import-sort/imports": "error", // import文の整列
-    "simple-import-sort/exports": "error", // export文の整列
+    "simple-import-sort/imports": "warn", // import文の整列
+    "simple-import-sort/exports": "warn", // export文の整列
     "no-underscore-dangle": "off", // アンダースコアを許可
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/explicit-module-boundary-types": "error",
