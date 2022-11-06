@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint --dir src",
     "lint:fix": "next lint --dir src --fix",
-    "prepare": "simple-git-hooks"
+    "prepare": "simple-git-hooks",
+    "watch": "typed-scss-modules src --watch"
   },
   "dependencies": {
     "@types/node": "18.11.9",
@@ -33,7 +34,8 @@
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "sass": "^1.56.0",
-    "simple-git-hooks": "^2.8.1"
+    "simple-git-hooks": "^2.8.1",
+    "typed-scss-modules": "^7.0.1"
   },
   "prettier": {
     "singleQuote": false,
