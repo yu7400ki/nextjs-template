@@ -42,8 +42,11 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint src --fix",
-      "prettier --write --dir src"
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,scss}": [
+      "prettier --write"
     ]
   },
   "simple-git-hooks": {
