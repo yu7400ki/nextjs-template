@@ -1,14 +1,16 @@
-export type Option<T> = {
+import type { NonNullish } from "./alias";
+
+export type Option<T extends NonNullish> = {
   readonly type: "Some" | "None";
   value?: T;
   isSome(): boolean;
   unwrap(): T;
   unwrapOr(value: T): T;
-  map<U>(fn: (value: T) => U): Option<U>;
+  map<U extends NonNullish>(fn: (value: T) => U): Option<U>;
   mapOr<U>(defaultValue: U, fn: (value: T) => U): U;
 };
 
-export const Some = <T>(value: T): Option<T> => ({
+export const Some = <T extends NonNullish>(value: T): Option<T> => ({
   type: "Some",
   value,
   isSome(): boolean {
@@ -20,7 +22,7 @@ export const Some = <T>(value: T): Option<T> => ({
   unwrapOr(): T {
     return this.value as T;
   },
-  map<U>(fn: (value: T) => U): Option<U> {
+  map<U extends NonNullish>(fn: (value: T) => U): Option<U> {
     return Some(fn(this.value as T));
   },
   mapOr<U>(defaultValue: U, fn: (value: T) => U): U {
