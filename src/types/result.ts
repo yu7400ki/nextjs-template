@@ -1,64 +1,50 @@
-/* eslint-disable max-classes-per-file */
-/* eslint-disable class-methods-use-this */
+export type Result<T, E extends Error = Error> = {
+  readonly type: "Ok" | "Err";
+  value?: T;
+  error?: E;
+  isOk(): boolean;
+  unwrap(): T;
+  unwrapOr(value: T): T;
+  map<U>(fn: (value: T) => U): Result<U, E>;
+  mapOr<U>(defaultValue: U, fn: (value: T) => U): U;
+};
 
-export class Ok<T> {
-  readonly type = "Ok";
-
-  value: T;
-
-  constructor(value: T) {
-    this.value = value;
-  }
-
+export const Ok = <T>(value: T): Result<T, never> => ({
+  type: "Ok",
+  value,
   isOk(): boolean {
     return true;
-  }
-
+  },
   unwrap(): T {
-    return this.value;
-  }
-
+    return this.value as T;
+  },
   unwrapOr(): T {
-    return this.value;
-  }
-
-  map<U>(fn: (value: T) => U): Ok<U> {
-    return new Ok(fn(this.value));
-  }
-
+    return this.value as T;
+  },
+  map<U>(fn: (value: T) => U): Result<U, never> {
+    return Ok(fn(this.value as T));
+  },
   mapOr<U>(defaultValue: U, fn: (value: T) => U): U {
-    return fn(this.value);
-  }
-}
+    return fn(this.value as T);
+  },
+});
 
-export class Err<E extends Error> {
-  readonly type = "Err";
-
-  error: E;
-
-  constructor(value: E) {
-    this.error = value;
-  }
-
+export const Err = <E extends Error = Error>(error: E): Result<never, E> => ({
+  type: "Err",
+  error,
   isOk(): boolean {
     return false;
-  }
-
+  },
   unwrap(): never {
     throw new Error("called unwrap on Err");
-  }
-
+  },
   unwrapOr<T>(value: T): T {
     return value;
-  }
-
-  map(): Err<E> {
-    return new Err(this.error);
-  }
-
+  },
+  map(): Result<never, E> {
+    return Err(this.error as E);
+  },
   mapOr<U>(defaultValue: U): U {
     return defaultValue;
-  }
-}
-
-export type Result<T, E extends Error> = Ok<T> | Err<E>;
+  },
+});
